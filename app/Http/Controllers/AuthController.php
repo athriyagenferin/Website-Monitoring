@@ -32,6 +32,7 @@ class AuthController extends Controller
         $request->session()->put($data);
 
         return redirect()->route('dashboard');
+    
 
     }
 }

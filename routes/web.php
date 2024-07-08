@@ -19,8 +19,11 @@ use App\Http\Controllers\AuthController;
 //     return view('welcome');
 // });
 
-
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login.post');
 
+// Dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Dashboard Real Time
+Route::get('/fetch-data', [DashboardController::class, 'fetchDataAPI']);
