@@ -1,3 +1,6 @@
+{{-- connect real time --}}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,6 +115,144 @@
     </div>
 </body>
 </html>
+
+{{-- data dummy --}}
+
+{{-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .dashboard-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            width: 150px;
+            height: 100px;
+            text-align: center;
+        }
+        .dashboard-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    @extends('layouts.master')
+ 
+@section('content')
+    <div class="container mt-5 pl-lg-5">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Router Board Name: {{ $data['routerBoardName'] ?? 'N/A' }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            @if (!empty($data['cpuLoad']))
+                <div class="col-md-3">
+                    <div class="dashboard-box">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <div>CPU Load</div>
+                        <div>{{ $data['cpuLoad'] }} %</div>
+                    </div>
+                </div>
+            @endif
+            @if (!empty($data['totalPPPoESecret']))
+                <div class="col-md-3">
+                    <div class="dashboard-box">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div>Total PPPoE Secret</div>
+                        <div>{{ $data['totalPPPoESecret'] }}</div>
+                    </div>
+                </div>
+            @endif
+            @if (!empty($data['hotspotActive']))
+                <div class="col-md-3">
+                    <div class="dashboard-box">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>Hotspot Active</div>
+                        <div>{{ $data['hotspotActive'] }}</div>
+                    </div>
+                </div>
+            @endif
+            @if (!empty($data['uptime']))
+                <div class="col-md-3">
+                    <div class="dashboard-box">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>Uptime</div>
+                        <div>{{ $data['uptime'] }}</div>
+                    </div>
+                </div>
+            @endif
+            @if (!empty($data['infoModel']) && !empty($data['infoOS']))
+                <div class="col-md-3">
+                    <div class="dashboard-box">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div>Info</div>
+                        <div>Model: {{ $data['infoModel'] }}</div>
+                        <div>OS: {{ $data['infoOS'] }}</div>
+                    </div>
+                </div>
+            @endif
+            @if (!empty($data['freeMemoryHdd']))
+                <div class="col-md-3">
+                    <div class="dashboard-box">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-hdd"></i>
+                        </div>
+                        <div>Free Memory/Hdd</div>
+                        <div>{{ $data['freeMemoryHdd'] }}</div>
+                    </div>
+                </div>
+            @endif
+            @if (!empty($data['pppoeActive']))
+                <div class="col-md-3">
+                    <div class="dashboard-box">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>PPPoE Active</div>
+                        <div>{{ $data['pppoeActive'] }}</div>
+                    </div>
+                </div>
+            @endif
+            @if (!empty($data['totalUserHotspot']))
+                <div class="col-md-3">
+                    <div class="dashboard-box">
+                        <div class="dashboard-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <div>Total User Hotspot</div>
+                        <div>{{ $data['totalUserHotspot'] }}</div>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+</body>
+</html>
+ --}}
+
 
 
 {{--

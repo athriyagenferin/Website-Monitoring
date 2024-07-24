@@ -1,5 +1,6 @@
 <?php
 
+// connect real time //
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -17,9 +18,10 @@ class AuthController extends Controller
             'ip' => 'required',
             'user' => 'required',
         ]);
+        
         $ip = $request->post('ip');
         $user = $request->post('user');
-        $pass = $request->post('pass');
+        $pass = $request->post('password', '');
 
         $data = [
             'ip' => $ip,
@@ -27,12 +29,10 @@ class AuthController extends Controller
             'pass' => $pass,
         ];
         
-        //dd($data);
 
         $request->session()->put($data);
 
         return redirect()->route('dashboard');
-    
-
     }
+
 }

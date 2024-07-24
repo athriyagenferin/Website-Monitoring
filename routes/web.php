@@ -22,6 +22,11 @@ use App\Http\Controllers\AuthController;
 Route::get('/', [AuthController::class, 'index'])->name('login');
 Route::post('login', [AuthController::class, 'login'])->name('login.post');
 
+// Auth Login & Logout
+Route::get('login', [AuthController::class, 'index'])->name('auth.index');
+Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
+Route::get('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
 // Dashboard
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

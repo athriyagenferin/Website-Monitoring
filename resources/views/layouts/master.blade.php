@@ -4,21 +4,13 @@
 @include('layouts.head')
 
 <body>
-	<div class="wrapper">
-		<div class="main-header">
-		
-        @include('layouts.header')
-
-        @include('layouts.navbar')
-
-		</div>
 
         @include('layouts.sidebar')
         
         @yield('content')
 		
         @include('layouts.setting')
-	</div>
+
 	
     @include('layouts.script')
 

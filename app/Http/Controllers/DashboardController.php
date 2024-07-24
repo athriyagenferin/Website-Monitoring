@@ -1,4 +1,6 @@
 <?php
+
+// connect real time //
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -20,11 +22,15 @@ class DashboardController extends Controller
         $user = session()->get('user');
         $pass = session()->get('pass');
 
-        if (!$ip || !$user || !$pass) {
+        if (!$ip || !$user) {
             return redirect()->route('login')->with('error', 'Session expired. Please log in again.');
         }
 
         $data = $this->fetchData($ip, $user, $pass);
+
+        if (empty($data)) {
+            return redirect()->route('login')->with('error', 'Failed to connect to the router.');
+        }
 
         return view('dashboard', compact('data'));
     }
@@ -75,136 +81,113 @@ class DashboardController extends Controller
     }
 }
 
+// data dummy //
+
 // namespace App\Http\Controllers;
 
 // use Illuminate\Http\Request;
-// use App\Models\RouterosAPI;
-
+// use App\Models\RouterosAPI; // Pastikan namespace model RouterosAPI sudah benar
 
 // class DashboardController extends Controller
 // {
+//     private $API;
+//     private $isSimulation = true; // Setel ke true untuk mode simulasi
+
+//     public function __construct()
+//     {
+//         $this->API = new RouterosAPI();
+//         $this->API->debug = false;
+//     }
+
 //     public function index()
 //     {
-//         $ip = session()->get('ip');
-//         $user = session()->get('user');
-//         $pass = session()-> get('pass');
-//         $API = new RouterosAPI();
-//         $API->debug('false');
+//         if (!$this->isSimulation) {
+//             $ip = session()->get('ip');
+//             $user = session()->get('user');
+//             $pass = session()->get('pass');
 
-
-
-
-        
-//         if($API->connect($ip, $user, $pass)) {
-//             $identitas = $API->comm('/');
-//             $routermodel = $API->comm('/system/routerboard/print');
-//         } else {
-//             return 'Koneksi Gagal';
+//             if (!$ip || !$user || !$pass) {
+//                 return redirect()->route('login')->with('error', 'Session expired. Please log in again.');
+//             }
 //         }
 
-        
-            
-//         $data = [
-//             'routerBoardName' => '0',
-//             'cpuLoad' => '0',
-//             'totalPPPoESecret' => '0',
-//             'hotspotActive' => '0',
-//             'uptime' => '0',
-//             'infoModel' => '0 / 0',
-//             'infoOS' => '0',
-//             'freeMemoryHdd' => '0 / 0',
-//             'pppoeActive' => '0',
-//             'totalUserHotspot' => '0',
-//         ];
-
-//         if ($API->connect($ip, $user, $pass)) {
-//             $cpu = $API->comm('/system/resource/print');
-//             $uptime = $API->comm('/system/resource/print');
-//             $routermodel = $API->comm('/system/routerboard/print');
-//             // Add other necessary API calls here
-
-//             if (!empty($cpu)) {
-//                 $data['cpuLoad'] = $cpu[0]['cpu-load'];
-//             }
-
-//             if (!empty($uptime)) {
-//                 $data['uptime'] = $uptime[0]['uptime'];
-//             }
-
-//             if (!empty($routermodel)) {
-//                 $data['routerBoardName'] = $routermodel[0]['routerBoardName'] ?? 'N/A';
-//                 // Add other necessary data parsing here
-//             }
-
-//             // Fetch and parse other data similarly
-//         } else {
-//             return 'Koneksi Gagal';
-//         }
+//         $data = $this->fetchData($ip ?? null, $user ?? null, $pass ?? null);
 
 //         return view('dashboard', compact('data'));
 //     }
 
+//     private function fetchData($ip, $user, $pass)
+//     {
+//         $data = [];
 
-// public function cpu(){
+//         if (!$this->isSimulation && $this->API->connect($ip, $user, $pass)) {
+//             // Implementasi ambil data dari router
+//             $cpu = $this->API->comm('/system/resource/print');
+//             $uptime = $this->API->comm('/system/resource/print');
+//             $routerModel = $this->API->comm('/system/routerboard/print');
+//             $totalPPPoESecret = $this->API->comm('/ppp/secret/print');
+//             $hotspotActive = $this->API->comm('/ip/hotspot/active/print');
+//             $freeMemory = $this->API->comm('/system/resource/print');
+//             $pppoeActive = $this->API->comm('/ppp/active/print');
 
-//     $ip = session()-> get('ip');
-//     $user = session()-> get('user');
-//     $pass = session()-> get('pass');
-//     $API = new RouterosAPI();
-//     $API->debug = false;
-
-//     if ($API->connect($ip, $user, $pass)) {
-//         $cpu = $API->comm('/system/resource/print');
-//         if (!empty($cpu)) {
 //             $data = [
-//                 'cpuLoad' => $cpu[0]['cpu-load'],
+//                 'cpuLoad' => !empty($cpu) ? $cpu[0]['cpu-load'] : 'N/A',
+//                 'uptime' => !empty($uptime) ? $uptime[0]['uptime'] : 'N/A',
+//                 'routerBoardName' => !empty($routerModel) ? $routerModel[0]['model'] : 'N/A',
+//                 'totalPPPoESecret' => count($totalPPPoESecret),
+//                 'hotspotActive' => count($hotspotActive),
+//                 'infoModel' => !empty($routerModel) ? $routerModel[0]['model'] : 'N/A',
+//                 'infoOS' => !empty($routerModel) ? $routerModel[0]['current-firmware'] : 'N/A',
+//                 'freeMemoryHdd' => !empty($freeMemory) ? $freeMemory[0]['free-memory'] . ' / ' . $freeMemory[0]['free-hdd-space'] : 'N/A',
+//                 'pppoeActive' => count($pppoeActive),
+//                 'totalUserHotspot' => count($hotspotActive),
 //             ];
 //         } else {
-//             return 'Data CPU tidak ditemukan';
-//         }
-//     } else {
-//         return 'Koneksi Gagal';
-//     }
-
-//     return view('realtime.cpu', compact('data'));
-
-// }
-
-// public function uptime()
-// {
-//     $ip = session()->get('ip');
-//     $user = session()->get('user');
-//     $pass = session()->get('pass');
-//     $API = new RouterosAPI();
-//     $API->debug = false;
-
-//     if ($API->connect($ip, $user, $pass)) {
-//         $uptime = $API->comm('/system/resource/print');
-//         if (!empty($uptime)) {
+//             // Data simulasi untuk mode pengembangan
 //             $data = [
-//                 'uptime' => $uptime[0]['uptime'],
+//                 'cpuLoad' => '50%',
+//                 'uptime' => '12 days',
+//                 'routerBoardName' => 'Simulated Router',
+//                 'totalPPPoESecret' => 10,
+//                 'hotspotActive' => 5,
+//                 'infoModel' => 'Simulated Model',
+//                 'infoOS' => 'Simulated OS',
+//                 'freeMemoryHdd' => '100 MB / 1 GB',
+//                 'pppoeActive' => 3,
+//                 'totalUserHotspot' => 5,
 //             ];
-//         } else {
-//             return 'Data Uptime tidak ditemukan';
 //         }
-//     } else {
-//         return 'Koneksi Gagal';
+
+//         return $data;
 //     }
-
-//     return view('realtime.uptime', compact('data'));
 // }
+//     public function fetchDataAPI()
+//     {
+//         if (!$this->isSimulation) {
+//             $ip = session()->get('ip');
+//             $user = session()->get('user');
+//             $pass = session()->get('pass');
 
+//             $data = $this->fetchData($ip, $user, $pass);
+
+//             if (empty($data)) {
+//                 return response()->json(['error' => 'Connection failed'], 500);
+//             }
+//         } else {
+//             $data = [
+//                 'cpuLoad' => '50%',
+//                 'uptime' => '12 days',
+//                 'routerBoardName' => 'Simulated Router',
+//                 'totalPPPoESecret' => 10,
+//                 'hotspotActive' => 5,
+//                 'infoModel' => 'Simulated Model',
+//                 'infoOS' => 'Simulated OS',
+//                 'freeMemoryHdd' => '100 MB / 1 GB',
+//                 'pppoeActive' => 3,
+//                 'totalUserHotspot' => 5,
+//             ];
+//         }
+
+//         return response()->json($data);
+//     }
 // }
-
-        // $data= [
-        //     'identitas' => $identitas[0]['name'],
-        //     'routermodel' => $routermodel[0]['model'],
-        // ];
-        
-        //dd($identitas);
-
-        // return view('layouts.master');
-     
-            // Data dummy untuk sementara
-            
-            
