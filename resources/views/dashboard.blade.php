@@ -1,7 +1,107 @@
+{{-- connect database --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .dashboard-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            width: 150px;
+            height: 100px;
+            text-align: center;
+        }
+        .dashboard-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Router Dashboard</h1>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="dashboard-box">
+                    <i class="fas fa-microchip dashboard-icon"></i>
+                    <h5>CPU Load</h5>
+                    <p>{{ $data['cpuLoad'] }}%</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="dashboard-box">
+                    <i class="fas fa-clock dashboard-icon"></i>
+                    <h5>Uptime</h5>
+                    <p>{{ $data['uptime'] }}</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="dashboard-box">
+                    <i class="fas fa-server dashboard-icon"></i>
+                    <h5>Router Model</h5>
+                    <p>{{ $data['routerBoardName'] }}</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="dashboard-box">
+                    <i class="fas fa-users dashboard-icon"></i>
+                    <h5>PPPoE Users</h5>
+                    <p>{{ $data['totalPPPoESecret'] }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="dashboard-box">
+                    <i class="fas fa-wifi dashboard-icon"></i>
+                    <h5>Hotspot Active</h5>
+                    <p>{{ $data['hotspotActive'] }}</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="dashboard-box">
+                    <i class="fas fa-memory dashboard-icon"></i>
+                    <h5>Free Memory / HDD</h5>
+                    <p>{{ $data['freeMemoryHdd'] }}</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="dashboard-box">
+                    <i class="fas fa-users dashboard-icon"></i>
+                    <h5>PPPoE Active</h5>
+                    <p>{{ $data['pppoeActive'] }}</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="dashboard-box">
+                    <i class="fas fa-users dashboard-icon"></i>
+                    <h5>Total Hotspot Users</h5>
+                    <p>{{ $data['totalUserHotspot'] }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
 {{-- connect real time --}}
 
-
-<!DOCTYPE html>
+{{--  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -113,8 +213,8 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+</body> 
+</html> --}}
 
 {{-- data dummy --}}
 
